@@ -2,7 +2,7 @@
 
 /* valores a serem configurados */
 $chavepix = ''; //trocar
-$nomebeneficiario = ''; //trocar e não utlizar acentos
+$nomebeneficiario = ''; //trocar e não utlizar acentos e máx 25 caracteres
 $cidadebeneficiario = ''; //trocar
 $identificador = ''; //trocar
 $valor = ''; //trocar formato 1.12
@@ -33,7 +33,8 @@ $valor = ''; //trocar formato 1.12
 
 $pix = '00020126'.(strlen($chavepix)+22).'0014BR.GOV.BCB.PIX01'.str_pad(strlen($chavepix), 2, '0', STR_PAD_LEFT).$chavepix.
        '52040000530398654'.str_pad(strlen($valor), 2, '0', STR_PAD_LEFT).$valor.'5802BR59'.str_pad(strlen($nomebeneficiario), 2, '0', STR_PAD_LEFT).$nomebeneficiario.
-       '60'.str_pad(strlen($cidadebeneficiario), 2, '0', STR_PAD_LEFT).$cidadebeneficiario.'621305'.str_pad(strlen($identificador), 2, '0', STR_PAD_LEFT).$identificador.'6304';
+       '60'.str_pad(strlen($cidadebeneficiario), 2, '0', STR_PAD_LEFT).$cidadebeneficiario.'62'.(str_pad(strlen($identificador), 2, '0', STR_PAD_LEFT)+4).
+       '05'.str_pad(strlen($identificador), 2, '0', STR_PAD_LEFT).$identificador.'6304';
 $pix = $pix.crcChecksum($pix);
 $qrcode = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl='.rawurlencode($pix);
 ?>
