@@ -31,10 +31,19 @@ $valor = ''; //trocar formato 1.12
   return str_pad($hex, 4, '0', STR_PAD_LEFT);
 }
 
-$pix = '00020126'.(strlen($chavepix)+22).'0014BR.GOV.BCB.PIX01'.str_pad(strlen($chavepix), 2, '0', STR_PAD_LEFT).$chavepix.
-       '52040000530398654'.str_pad(strlen($valor), 2, '0', STR_PAD_LEFT).$valor.'5802BR59'.str_pad(strlen($nomebeneficiario), 2, '0', STR_PAD_LEFT).$nomebeneficiario.
-       '60'.str_pad(strlen($cidadebeneficiario), 2, '0', STR_PAD_LEFT).$cidadebeneficiario.'62'.(str_pad(strlen($identificador), 2, '0', STR_PAD_LEFT)+4).
-       '05'.str_pad(strlen($identificador), 2, '0', STR_PAD_LEFT).$identificador.'6304';
+$pix = '000201'. //Payload Format Indicator
+       '26'.(strlen($chavepix)+22). //Merchant Account Information
+          '0014BR.GOV.BCB.PIX'. //Globally Unique Identifier
+          '01'.str_pad(strlen($chavepix), 2, '0', STR_PAD_LEFT).$chavepix. //Chave PIX
+       '52040000'. //Merchant Category Code
+       '5303986'. //Transaction Currency
+       '54'.str_pad(strlen($valor), 2, '0', STR_PAD_LEFT).$valor. //Transaction Amount
+       '5802BR'. //Country Code
+       '59'.str_pad(strlen($nomebeneficiario), 2, '0', STR_PAD_LEFT).$nomebeneficiario. //Merchant Name
+       '60'.str_pad(strlen($cidadebeneficiario), 2, '0', STR_PAD_LEFT).$cidadebeneficiario. //Merchant City
+       '62'.(str_pad(strlen($identificador), 2, '0', STR_PAD_LEFT)+4). //Additional Data Field Template
+         '05'.str_pad(strlen($identificador), 2, '0', STR_PAD_LEFT).$identificador. //Reference Label
+       '6304'; //cabeçalho CRC ele é adicionado abaixo
 $pix = $pix.crcChecksum($pix);
 $qrcode = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl='.rawurlencode($pix);
 ?>
