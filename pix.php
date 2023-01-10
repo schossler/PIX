@@ -2,10 +2,13 @@
 
 /* valores a serem configurados */
 $chavepix = ''; //trocar
-$nomebeneficiario = ''; //trocar e não utlizar acentos e máx 25 caracteres
+$nomebeneficiario = ''; //trocar
 $cidadebeneficiario = ''; //trocar
 $identificador = ''; //trocar
-$valor = ''; //trocar formato 1.12
+$valor = ''; //trocar
+
+$valor = number_format($valor, 2, '.', '');
+$nomebeneficiario = substr($nomebeneficiario, 0, 25);
 
   function crcChecksum($str) {
     // The PHP version of the JS str.charCodeAt(i)
